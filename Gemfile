@@ -6,7 +6,7 @@ gem 'sprockets', github: "rails/sprockets"
 gem 'sass-rails', github: "rails/sass-rails"
 gem 'arel', github: "rails/arel"
 gem 'rack', github: "rack/rack"
-
+gem 'mechanize'
 # Use sqlite3 as the database for Active Record
 gem 'sqlite3'
 # Use ActiveModel has_secure_password
