@@ -6,8 +6,20 @@ class BggCrawler
     @agent = Mechanize.new
   end
 
-  def parse_games
-    Rails.cache.fetch(@username, expire_in: 1.minute) do
+  def get_owned_games
+    parsed_games(own_url)
+  end
+
+  def get_wishlisted_games
+    parsed_games(wishlist_url)
+  end
+
+  private
+
+  BASE_URL = "https://boardgamegeek.com/geekcollection.php?ajax=1&action=collectionpage&sort=title&pageID=1&ff=1&columns[]=title&columns[]=thumbnail"
+
+  def parsed_games(url)
+    Rails.cache.fetch(url.gsub(BASE_URL,''), expire_in: 1.minute) do
       @games = []
       @page = @agent.get(url)
       @page.root.search('#collectionitems > tr:gt(1)').each do |tr|
@@ -19,10 +31,13 @@ class BggCrawler
     end
   end
 
-  private
+  def own_url
+    "#{BASE_URL}&username=#{@username}&own=1"
+  end
 
-  def url
-    "https://boardgamegeek.com/geekcollection.php?ajax=1&action=collectionpage&username=#{@username}&sort=title&pageID=1&ff=1&columns[]=title&columns[]=thumbnail&own=1"
+  def wishlist_url
+    "#{BASE_URL}&username=#{@username}&wishlist=1"
   end
 
 end
+
