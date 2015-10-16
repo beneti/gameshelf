@@ -7,6 +7,7 @@ gem 'sass-rails', github: "rails/sass-rails"
 gem 'arel', github: "rails/arel"
 gem 'rack', github: "rack/rack"
 gem 'mechanize'
+gem 'webmock'
 # Use sqlite3 as the database for Active Record
 gem 'sqlite3'
 # Use ActiveModel has_secure_password
@@ -27,6 +28,8 @@ gem 'active_model_serializers', '~> 0.10.0.rc2'
 group :development, :test do
   # Call 'byebug' anywhere in the code to stop execution and get a debugger console
   gem 'byebug'
+  gem 'rspec-rails'
+  gem 'pry-rails'
 end
 
 group :development do
